@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVA — Кафе в Ташкенте</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --dark: #211a16;
+      --cream: #f7f1e8;
+      --light: #fffaf3;
+      --accent: #c98952;
+      --text: #312720;
+      --muted: #766960;
+      --white: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 18px 6%;
+      transition: 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255, 250, 243, 0.95);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    nav {
+      max-width: 1300px;
+      margin: auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      transition: 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .lang-switch {
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 50px;
+      padding: 7px 13px;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .lang-switch span {
+      opacity: 0.35;
+      margin: 0 3px;
+    }
+
+    .lang-switch b {
+      opacity: 0.4;
+    }
+
+    .lang-switch b.active {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .mobile-menu {
+      display: none;
+      border: none;
+      background: transparent;
+      width: 35px;
+      height: 35px;
+    }
+
+    .mobile-menu svg {
+      width: 23px;
+      height: 23px;
+      stroke: var(--dark);
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+      min-height: 100vh;
+      padding: 130px 6% 70px;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+
+      background: var(--cream);
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(55px, 7vw, 100px);
+      line-height: 0.95;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 span:last-child {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 470px;
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 15px 25px;
+      border-radius: 50px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      border: 1px solid var(--dark);
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .btn-outline:hover {
+      background: var(--dark);
+      color: white;
+    }
+
+    .hero-image {
+      height: 680px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 230px 230px 20px 20px;
+    }
+
+    .hero-image img {
+      height: 100%;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+
+      background: rgba(255, 255, 255, 0.92);
+
+      padding: 18px 22px;
+      border-radius: 15px;
+
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-badge strong {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+    }
+
+    .hero-badge small {
+      color: var(--muted);
+    }
+
+    /* ================= GENERAL ================= */
+
+    section {
+      padding: 110px 6%;
+    }
+
+    .section-inner {
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(40px, 5vw, 65px);
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 25px;
+    }
+
+    /* ================= ABOUT ================= */
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .about-images {
+      display: grid;
+      grid-template-columns: 1fr 0.75fr;
+      gap: 15px;
+      align-items: end;
+    }
+
+    .about-images img:first-child {
+      height: 530px;
+      border-radius: 180px 180px 15px 15px;
+    }
+
+    .about-images img:last-child {
+      height: 330px;
+      border-radius: 15px;
+    }
+
+    /* ================= MENU ================= */
+
+    .menu-section {
+      background: var(--dark);
+      color: white;
+    }
+
+    .menu-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 50px;
+    }
+
+    .menu-top .section-title {
+      margin: 0;
+    }
+
+    .menu-top p {
+      color: #bcb0a8;
+      max-width: 390px;
+      line-height: 1.7;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .menu-card {
+      background: #2b221d;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: 0.35s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-8px);
+      background: #342922;
+    }
+
+    .menu-card img {
+      height: 250px;
+    }
+
+    .menu-info {
+      padding: 22px;
+    }
+
+    .menu-info h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .menu-info p {
+      color: #aaa099;
+      font-size: 13px;
+      line-height: 1.6;
+      min-height: 42px;
+    }
+
+    .price {
+      color: #e3a66f;
+      font-weight: 700;
+      margin-top: 17px;
+      font-size: 17px;
+    }
+
+    /* ================= SPECIAL BREAKFAST ================= */
+
+    .special {
+      background: var(--cream);
+    }
+
+    .special-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 550px;
+      overflow: hidden;
+      border-radius: 25px;
+      background: #e8d9c7;
+    }
+
+    .special-image img {
+      height: 100%;
+    }
+
+    .special-content {
+      padding: 70px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .special-content h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(40px, 5vw, 65px);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .special-content p {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 30px;
+    }
+
+    .special-price {
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+
+    /* ================= GALLERY ================= */
+
+    .gallery-title {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 50px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr 0.8fr;
+      grid-template-rows: 250px 250px;
+      gap: 15px;
+    }
+
+    .gallery img {
+      height: 100%;
+      border-radius: 15px;
+      transition: 0.4s;
+    }
+
+    .gallery img:hover {
+      transform: scale(0.98);
+      filter: brightness(0.85);
+    }
+
+    .gallery img:first-child {
+      grid-row: span 2;
+    }
+
+    /* ================= LOCATION ================= */
+
+    .location {
+      background: var(--cream);
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 22px;
+      margin-top: 35px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--dark);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 19px;
+      height: 19px;
+      stroke: white;
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .contact-item span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .map {
+      height: 450px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 70px 6% 25px;
+    }
+
+    .footer-inner {
+      max-width: 1250px;
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+
+      padding-bottom: 50px;
+    }
+
+    .footer-logo {
+      font-family: "Playfair Display", serif;
+      font-size: 34px;
+      letter-spacing: 5px;
+      margin-bottom: 15px;
+    }
+
+    footer p {
+      color: #aaa099;
+      max-width: 330px;
+      line-height: 1.7;
+    }
+
+    .socials {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .socials a {
+      border: 1px solid #514740;
+      padding: 10px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #403630;
+      padding-top: 25px;
+      text-align: center;
+      color: #746b65;
+      font-size: 12px;
+    }
+
+    /* ================= TABLET ================= */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 5%;
+        right: 5%;
+
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+
+        flex-direction: column;
+        gap: 20px;
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 120px;
+      }
+
+      .hero-image {
+        height: 500px;
+        order: -1;
+      }
+
+      .about,
+      .location-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .special-box {
+        grid-template-columns: 1fr;
+      }
+
+      .special-image {
+        height: 400px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 300px 200px 200px;
+      }
+
+      .gallery img:first-child {
+        grid-row: span 1;
+        grid-column: span 2;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 600px) {
+
+      section {
+        padding: 75px 5%;
+      }
+
+      .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .hero h1 {
+        font-size: 55px;
+      }
+
+      .hero-image {
+        height: 430px;
+        border-radius: 150px 150px 15px 15px;
+      }
+
+      .about-images {
+        grid-template-columns: 1fr;
+      }
+
+      .about-images img:first-child {
+        height: 420px;
+      }
+
+      .about-images img:last-child {
+        display: none;
+      }
+
+      .menu-top {
+        display: block;
+      }
+
+      .menu-top p {
+        margin-top: 20px;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .special-content {
+        padding: 40px 25px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, 260px);
+      }
+
+      .gallery img:first-child {
+        grid-column: auto;
+      }
+
+      .map {
+        height: 350px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+
+  <header id="header">
+
+    <nav>
+
+      <a href="#" class="logo">
+        NOVA
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+
+        <li>
+          <a href="#about"
+             data-ru="О нас"
+             data-uz="Biz haqimizda">
+            О нас
+          </a>
+        </li>
+
+        <li>
+          <a href="#menu"
+             data-ru="Меню"
+             data-uz="Menyu">
+            Меню
+          </a>
+        </li>
+
+        <li>
+          <a href="#gallery"
+             data-ru="Галерея"
+             data-uz="Galereya">
+            Галерея
+          </a>
+        </li>
+
+        <li>
+          <a href="#location"
+             data-ru="Контакты"
+             data-uz="Kontaktlar">
+            Контакты
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="nav-right">
+
+        <button class="lang-switch" id="language">
+          <b class="active">RU</b>
+          <span>/</span>
+          <b>UZ</b>
+        </button>
+
+        <button class="mobile-menu"
+                id="mobileMenu"
+                aria-label="Меню">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="1.8"
+            stroke-linecap="round">
+
+            <line x1="4" y1="7" x2="20" y2="7"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="17" x2="20" y2="17"/>
+
+          </svg>
+
+        </button>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+
+  <!-- ================= HERO ================= -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="eyebrow"
+           data-ru="Кафе в Ташкенте"
+           data-uz="Toshkentdagi kafe">
+        Кафе в Ташкенте
+      </div>
+
+      <h1>
+
+        <span
+          data-ru="Вкус"
+          data-uz="Lazzatli">
+          Вкус
+        </span>
+
+        <br>
+
+        <span
+          data-ru="момента."
+          data-uz="lahzalar.">
+          момента.
+        </span>
+
+      </h1>
+
+      <p
+        data-ru="Место, где хороший кофе, свежая выпечка и уютная атмосфера встречаются каждый день."
+        data-uz="Yaxshi qahva, yangi pishiriqlar va yoqimli muhit har kuni bir joyda.">
+
+        Место, где хороший кофе, свежая выпечка
+        и уютная атмосфера встречаются каждый день.
+
+      </p>
+
+      <div class="buttons">
+
+        <a href="#menu"
+           class="btn btn-primary"
+           data-ru="Посмотреть меню"
+           data-uz="Menyuni ko‘rish">
+          Посмотреть меню
+        </a>
+
+        <a href="#location"
+           class="btn btn-outline"
+           data-ru="Найти нас"
+           data-uz="Bizni topish">
+          Найти нас
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-image">
+
+      <img
+        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=85"
+        alt="Кофе в кафе">
+
+      <div class="hero-badge">
+
+        <strong>
+          08:00 — 23:00
+        </strong>
+
+        <small
+          data-ru="Каждый день"
+          data-uz="Har kuni">
+          Каждый день
+        </small>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= ABOUT ================= -->
+
+  <section id="about">
+
+    <div class="section-inner about">
+
+      <div class="about-images">
+
+        <img
+          src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=900&q=85"
+          alt="Интерьер кафе">
+
+        <img
+          src="https://images.unsplash.com/photo-1511081692775-05d0f180a065?auto=format&fit=crop&w=700&q=85"
+          alt="Кофе">
+
+      </div>
+
+
+      <div>
+
+        <div class="eyebrow"
+             data-ru="Наша история"
+             data-uz="Bizning hikoyamiz">
+          Наша история
+        </div>
+
+        <h2
+          class="section-title"
+          data-ru="Больше, чем просто кофе."
+          data-uz="Bu shunchaki qahva emas.">
+
+          Больше, чем просто кофе.
+
+        </h2>
+
+        <p
+          class="section-text"
+          data-ru="NOVA — современное кафе в самом сердце Ташкента. Мы создаём пространство, куда хочется приходить утром за кофе, днём на встречу и вечером просто отдохнуть."
+          data-uz="NOVA — Toshkent markazidagi zamonaviy va shinam kafe. Bu yerga ertalab qahva uchun, kun davomida uchrashuvga yoki kechqurun dam olish uchun kelishingiz mumkin.">
+
+          NOVA — современное кафе в самом сердце Ташкента.
+          Мы создаём пространство, куда хочется приходить утром
+          за кофе, днём на встречу и вечером просто отдохнуть.
+
+        </p>
+
+        <a href="#menu"
+           class="btn btn-primary"
+           data-ru="Наше меню"
+           data-uz="Bizning menyu">
+          Наше меню
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= MENU ================= -->
+
+  <section class="menu-section" id="menu">
+
+    <div class="section-inner">
+
+      <div class="menu-top">
+
+        <div>
+
+          <div class="eyebrow"
+               data-ru="Наше меню"
+               data-uz="Bizning menyu">
+            Наше меню
+          </div>
+
+          <h2
+            class="section-title"
+            data-ru="Любимые вкусы."
+            data-uz="Sevimli ta’mlar.">
+            Любимые вкусы.
+          </h2>
+
+        </div>
+
+        <p
+          data-ru="Кофе, десерты и выпечка, которые мы готовим с любовью каждый день."
+          data-uz="Har kuni mehr bilan tayyorlanadigan qahva, desert va pishiriqlar.">
+
+          Кофе, десерты и выпечка,
+          которые мы готовим с любовью каждый день.
+
+        </p>
+
+      </div>
+
+
+      <div class="menu-grid">
+
+
+        <!-- 1. КАПУЧИНО -->
+
+        <article class="menu-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=85"
+            alt="Капучино">
+
+          <div class="menu-info">
+
+            <h3
+              data-ru="Капучино"
+              data-uz="Kapuchino">
+              Капучино
+            </h3>
+
+            <p
+              data-ru="Эспрессо, молоко и нежная молочная пенка."
+              data-uz="Espresso, sut va yumshoq sut ko‘pigi.">
+              Эспрессо, молоко и нежная молочная пенка.
+            </p>
+
+            <div class="price">
+              32 000 сум
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 2. ЛАТТЕ -->
+
+        <article class="menu-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=85"
+            alt="Латте">
+
+          <div class="menu-info">
+
+            <h3
+              data-ru="Латте"
+              data-uz="Latte">
+              Латте
+            </h3>
+
+            <p
+              data-ru="Мягкий эспрессо с горячим молоком."
+              data-uz="Yumshoq espresso va issiq sut.">
+              Мягкий эспрессо с горячим молоком.
+            </p>
+
+            <div class="price">
+              34 000 сум
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 3. КРУАССАН -->
+
+        <article class="menu-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1000&q=90"
+            alt="Круассан">
+
+          <div class="menu-info">
+
+            <h3
+              data-ru="Круассан"
+              data-uz="Kruassan">
+              Круассан
+            </h3>
+
+            <p
+              data-ru="Хрустящий французский круассан со сливочным маслом."
+              data-uz="Sariyog‘li, qarsildoq fransuz kruassani.">
+              Хрустящий французский круассан
+              со сливочным маслом.
+            </p>
+
+            <div class="price">
+              27 000 сум
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 4. ШОКОЛАДНЫЙ ТОРТ -->
+
+        <article class="menu-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=85"
+            alt="Шоколадный торт">
+
+          <div class="menu-info">
+
+            <h3
+              data-ru="Шоколадный торт"
+              data-uz="Shokoladli tort">
+              Шоколадный торт
+            </h3>
+
+            <p
+              data-ru="Нежный шоколадный бисквит с кремом."
+              data-uz="Yumshoq shokoladli biskvit va krem.">
+              Нежный шоколадный бисквит с кремом.
+            </p>
+
+            <div class="price">
+              42 000 сум
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 5. ПОНЧИК -->
+
+        <article class="menu-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1000&q=90"
+            alt="Пончик">
+
+          <div class="menu-info">
+
+            <h3
+              data-ru="Пончик"
+              data-uz="Ponchik">
+              Пончик
+            </h3>
+
+            <p
+              data-ru="Мягкий пончик с глазурью и лёгкой сладостью."
+              data-uz="Yumshoq, shirin glazurali ponchik.">
+              Мягкий пончик с глазурью
+              и лёгкой сладостью.
+            </p>
+
+            <div class="price">
+              25 000 сум
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 6. СИННАБОН -->
+
+        <article class="menu-card">
+
+          <img
+            src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=1000&q=90"
+            alt="Синнабон">
+
+          <div class="menu-info">
+
+            <h3
+              data-ru="Синнабон"
+              data-uz="Sinnamon bulochkasi">
+              Синнабон
+            </h3>
+
+            <p
+              data-ru="Тёплая булочка с корицей, сливочным кремом и сладкой глазурью."
+              data-uz="Dolchin, qaymoqli krem va shirin glazurali yumshoq bulochka.">
+
+              Тёплая булочка с корицей,
+              сливочным кремом и сладкой глазурью.
+
+            </p>
+
+            <div class="price">
+              29 000 сум
+            </div>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       ВАЖНО:
+       ЗДЕСЬ ЗАВТРАК ОСТАЁТСЯ.
+       ЭТО НЕ КАРТОЧКА МЕНЮ.
+       ===================================================== -->
+
+  <section class="special">
+
+    <div class="section-inner">
+
+      <div class="special-box">
+
+
+        <!-- ФОТО ЗАВТРАКА -->
+
+        <div class="special-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=1000&q=85"
+            alt="Завтрак">
+
+        </div>
+
+
+        <!-- ДОБРОЕ УТРО ТАШКЕНТ -->
+
+        <div class="special-content">
+
+          <div
+            class="eyebrow"
+            data-ru="Утреннее предложение"
+            data-uz="Ertalabki taklif">
+
+            Утреннее предложение
+
+          </div>
+
+
+          <h2>
+
+            <span
+              data-ru="Доброе утро,"
+              data-uz="Xayrli tong,">
+
+              Доброе утро,
+
+            </span>
+
+            <br>
+
+            <span
+              data-ru="Ташкент."
+              data-uz="Toshkent.">
+
+              Ташкент.
+
+            </span>
+
+          </h2>
+
+
+          <p
+            data-ru="Кофе, круассан и свежие фрукты. Идеальный способ начать день."
+            data-uz="Qahva, kruassan va yangi mevalar. Kunni boshlashning eng yaxshi usuli.">
+
+            Кофе, круассан и свежие фрукты.
+            Идеальный способ начать день.
+
+          </p>
+
+
+          <div class="special-price">
+            59 000 сум
+          </div>
+
+
+          <a
+            href="#location"
+            class="btn btn-primary"
+            data-ru="Забронировать столик"
+            data-uz="Stolni band qilish">
+
+            Забронировать столик
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= GALLERY ================= -->
+
+  <section id="gallery">
+
+    <div class="section-inner">
+
+      <div class="gallery-title">
+
+        <div
+          class="eyebrow"
+          data-ru="Атмосфера"
+          data-uz="Atmosfera">
+          Атмосфера
+        </div>
+
+        <h2
+          class="section-title"
+          data-ru="Место, куда хочется возвращаться."
+          data-uz="Qayta-qayta kelgingiz keladigan joy.">
+
+          Место, куда хочется возвращаться.
+
+        </h2>
+
+      </div>
+
+
+      <div class="gallery">
+
+        <img
+          src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"
+          alt="Интерьер кафе">
+
+        <img
+          src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=900&q=85"
+          alt="Кафе">
+
+        <img
+          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85"
+          alt="Интерьер">
+
+        <img
+          src="https://images.unsplash.com/photo-1493857671505-72967e2e2760?auto=format&fit=crop&w=900&q=85"
+          alt="Кофейня">
+
+        <img
+          src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85"
+          alt="Еда">
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= LOCATION ================= -->
+
+  <section class="location" id="location">
+
+    <div class="section-inner location-grid">
+
+
+      <div>
+
+        <div
+          class="eyebrow"
+          data-ru="Посетите нас"
+          data-uz="Bizga tashrif buyuring">
+
+          Посетите нас
+
+        </div>
+
+
+        <h2
+          class="section-title"
+          data-ru="Мы ждём вас."
+          data-uz="Sizni kutamiz.">
+
+          Мы ждём вас.
+
+        </h2>
+
+
+        <p
+          class="section-text"
+          data-ru="Загляните к нам на кофе, завтрак или вечерний десерт."
+          data-uz="Qahva, nonushta yoki kechki desert uchun bizga tashrif buyuring.">
+
+          Загляните к нам на кофе,
+          завтрак или вечерний десерт.
+
+        </p>
+
+
+        <div class="contact-list">
+
+
+          <!-- ADDRESS -->
+
+          <div class="contact-item">
+
+            <div class="contact-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <path
+                  d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/>
+
+                <circle
+                  cx="12"
+                  cy="10"
+                  r="2.5"/>
+
+              </svg>
+
+            </div>
+
+            <div>
+
+              <strong
+                data-ru="Адрес"
+                data-uz="Manzil">
+                Адрес
+              </strong>
+
+              <span
+                data-ru="ул. Шахрисабз, 12, Ташкент"
+                data-uz="Shahrisabz ko‘chasi, 12, Toshkent">
+
+                ул. Шахрисабз, 12, Ташкент
+
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- HOURS -->
+
+          <div class="contact-item">
+
+            <div class="contact-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"/>
+
+                <path
+                  d="M12 7v5l3 2"/>
+
+              </svg>
+
+            </div>
+
+            <div>
+
+              <strong
+                data-ru="Работаем"
+                data-uz="Ish vaqtimiz">
+                Работаем
+              </strong>
+
+              <span
+                data-ru="Каждый день · 08:00 — 23:00"
+                data-uz="Har kuni · 08:00 — 23:00">
+
+                Каждый день · 08:00 — 23:00
+
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- PHONE -->
+
+          <div class="contact-item">
+
+            <div class="contact-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <path
+                  d="M6.5 3.5h3l1.5 4-2 1.5a13 13 0 0 0 6 6l1.5-2 4 1.5v3c0 1-1 2-2 2C10 19.5 4.5 14 4.5 5.5c0-1 1-2 2-2Z"/>
+
+              </svg>
+
+            </div>
+
+            <div>
+
+              <strong
+                data-ru="Телефон"
+                data-uz="Telefon">
+                Телефон
+              </strong>
+
+              <span>
+                +998 71 200 20 20
+              </span>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- MAP -->
+
+      <div class="map">
+
+        <iframe
+          src="https://www.google.com/maps?q=Tashkent%20Uzbekistan&output=embed"
+          loading="lazy">
+        </iframe>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+
+        <div class="footer-logo">
+          NOVA
+        </div>
+
+        <p
+          data-ru="Современное кафе в сердце Ташкента. Кофе, еда и хорошее настроение."
+          data-uz="Toshkent markazidagi zamonaviy kafe. Qahva, taom va yaxshi kayfiyat.">
+
+          Современное кафе в сердце Ташкента.
+          Кофе, еда и хорошее настроение.
+
+        </p>
+
+
+        <div class="socials">
+
+          <a href="#">
+            Instagram
+          </a>
+
+          <a href="#">
+            Telegram
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+      © 2026 NOVA Cafe · Tashkent
+    </div>
+
+  </footer>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+  <script>
+
+    /* HEADER */
+
+    const header =
+      document.getElementById("header");
+
+    window.addEventListener("scroll", () => {
+
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+
+    });
+
+
+    /* MOBILE MENU */
+
+    const mobileMenu =
+      document.getElementById("mobileMenu");
+
+    const navLinks =
+      document.getElementById("navLinks");
+
+    mobileMenu.addEventListener("click", () => {
+
+      navLinks.classList.toggle("show");
+
+    });
+
+
+    document
+      .querySelectorAll(".nav-links a")
+      .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+          navLinks.classList.remove("show");
+
+        });
+
+      });
+
+
+    /* LANGUAGE RU / UZ */
+
+    const languageButton =
+      document.getElementById("language");
+
+    let currentLanguage = "ru";
+
+    languageButton.addEventListener("click", () => {
+
+      currentLanguage =
+        currentLanguage === "ru"
+          ? "uz"
+          : "ru";
+
+
+      document
+        .querySelectorAll("[data-ru]")
+        .forEach(element => {
+
+          element.textContent =
+            element.dataset[currentLanguage];
+
+        });
+
+
+      const languages =
+        languageButton.querySelectorAll("b");
+
+
+      languages[0].classList.toggle(
+        "active",
+        currentLanguage === "ru"
+      );
+
+      languages[1].classList.toggle(
+        "active",
+        currentLanguage === "uz"
+      );
+
+
+      document.documentElement.lang =
+        currentLanguage;
+
+    });
+
+  </script>
+
+</body>
+
+</html>
